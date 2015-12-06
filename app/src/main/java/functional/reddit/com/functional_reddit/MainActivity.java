@@ -1,6 +1,7 @@
 package functional.reddit.com.functional_reddit;
 
 import android.annotation.SuppressLint;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,9 +39,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         final Button button = (Button) findViewById(R.id.dummy_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                System.out.println("Im here");
                 sendGET();
             }
         });
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendGET() {
         try {
+            System.out.println("Im here in sendGet");
             URL obj = new URL(GET_URL);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
@@ -71,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("GET request not worked");
             }
 
-        } catch (Exception me) {
+        } catch (MalformedURLException me) {
             me.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
