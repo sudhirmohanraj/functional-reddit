@@ -5,6 +5,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +20,6 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private static final String USER_AGENT = "Mozilla/5.0";
 
-    private static final String GET_URL = "http://www.reddit.com/r/coys/new.json?sort=new";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,18 +29,25 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        final Button button = (Button) findViewById(R.id.button);
+        final Button button = (Button) findViewById(R.id.subReddit_button);
+        final EditText editText = (EditText) findViewById(R.id.subreddit_editText);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Im here");
-                sendGET();
+                if(editText.getText()!=null) {
+                    sendGET(editText.getText().toString());
+                }else {
+                    // send a default sub reddit.
+                    sendGET("coys");
+                }
             }
         });
     }
 
-    private void sendGET() {
+    private void sendGET(String subreddit) {
         try {
             System.out.println("Im here in sendGet");
+            String GET_URL = "http://www.reddit.com/r/" +subreddit+ "/new.json?sort=new";
             URL obj = new URL(GET_URL);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
