@@ -1,49 +1,36 @@
 package functional.reddit.com.functional_reddit;
 
-import android.annotation.SuppressLint;
-import android.os.StrictMode;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-
-import javax.net.ssl.HttpsURLConnection;
-//import org.apache.http.client.HttpClient;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * A simple main activity that on the click of a button gets data from a given sub reddit.
  */
 public class MainActivity extends AppCompatActivity {
     private static final String USER_AGENT = "Mozilla/5.0";
 
-    private static final String GET_URL = "http://google.com";
+    private static final String GET_URL = "http://www.reddit.com/r/coys/new.json?sort=new";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
 
+        // Change this to make Async requests.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        final Button button = (Button) findViewById(R.id.dummy_button);
+        final Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Im here");
