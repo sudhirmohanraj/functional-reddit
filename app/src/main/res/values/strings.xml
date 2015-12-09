@@ -4,4 +4,8 @@
 
     <string name="subreddit_button">Reddit me!</string>
     <string name="subreddit_editText">subreddit you want to check out!</string>
+
+    <string name="title_activity_sub_reddit_viewer">SubRedditViewer</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="subreddit_viewer_fullscreen">subreddits</string>
 </resources>

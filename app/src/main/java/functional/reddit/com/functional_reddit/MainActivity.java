@@ -1,11 +1,13 @@
 package functional.reddit.com.functional_reddit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_main);
+
+        Singleton singleton = Singleton.singleton;
 
         // Change this to make Async requests.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -67,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // print result
                 System.out.println(response.toString());
+
+                // Open a new full screen activity.
+                Intent intent = new Intent(this, SubRedditViewerActivity.class);
+//                TextView textView = (TextView) findViewById(R.id.textView);
+//                String message = textView.getText().toString();
+                intent.putExtra("functional.reddit.com.functional_reddit",response.toString());
+                startActivity(intent);
             } else {
                 System.out.println("GET request not worked");
             }
